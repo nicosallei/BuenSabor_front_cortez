@@ -23,14 +23,15 @@ export default abstract class BackendClient<
       if (
         response.status === 204 ||
         response.headers.get("Content-Length") === "0"
-      )
-        return response.json();
+      ) {
+        //return undefined;
+      }
+
+      return response.json();
     } catch (error) {
       console.error("Error en la solicitud:", error);
       return Promise.reject(error);
     }
-
-    return Promise.reject(new Error("Unexpected error occurred."));
   }
 
   protected async requestAll(
