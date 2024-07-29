@@ -1,27 +1,16 @@
-import { useEffect } from "react";
+import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useNavigate } from "react-router-dom";
 
-const CallbackPage = () => {
-  const { isAuthenticated, handleRedirectCallback } = useAuth0();
-  const navigate = useNavigate();
+const Callback = () => {
+  const { isAuthenticated } = useAuth0();
 
-  useEffect(() => {
-    const processCallback = async () => {
-      try {
-        await handleRedirectCallback();
-        if (isAuthenticated) {
-          navigate("/");
-        }
-      } catch (error) {
-        console.error("Error handling callback: ", error);
-      }
-    };
-
-    processCallback();
-  }, [handleRedirectCallback, isAuthenticated, navigate]);
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      window.location.href = "/";
+    }
+  }, [isAuthenticated]);
 
   return <div>Loading...</div>;
 };
 
-export default CallbackPage;
+export default Callback;
