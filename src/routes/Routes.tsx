@@ -65,14 +65,6 @@ const Rutas: React.FC = () => {
         element={<AuthenticationGuard component={Promocion} />}
       />
 
-      <Route path="*" element={<ErrorPage />} />
-
-      <Route path="/callback" element={<CallbackPage />} />
-
-      <Route
-        path="/"
-        element={<AuthenticationGuard component={LoginHandler} />}
-      />
       <Route
         path="/perfil"
         element={<AuthenticationGuard component={EmpleadoProfileCard} />}
@@ -85,6 +77,9 @@ const Rutas: React.FC = () => {
         path="/vista-graficos-estadistica"
         element={<AuthenticationGuard component={VistaPrincipal} />}
       />
+      <Route path="*" element={<ErrorPage />} />
+      <Route path="/callback" element={<CallbackPage />} />
+      <Route path="/" element={<LoginHandler />} />
     </Routes>
   );
 };

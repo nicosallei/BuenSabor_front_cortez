@@ -1,21 +1,21 @@
-import IEmpleado from "./typeAuth0/Empleado";
 import BackendClient from "./BackendClient";
+import ICliente from "./typeAuth0/ICliente";
 
-export default class EmpleadoService extends BackendClient<IEmpleado> {
-  async getEmpleadoById(
+export default class ClienteService extends BackendClient<ICliente> {
+  async getClienteById(
     url: string,
     id: number,
     token: string
-  ): Promise<IEmpleado> {
+  ): Promise<ICliente> {
     return this.get(url, id, token);
   }
 
-  async getEmpleadoByEmail(
+  async getClienteByEmail(
     url: string,
     email: string,
     token: string
-  ): Promise<IEmpleado | null> {
-    const path = `${url}/empleado/email/${email}`;
+  ): Promise<ICliente | null> {
+    const path = `${url}/cliente/email/${email}`;
     const options: RequestInit = {
       method: "GET",
       headers: {
@@ -25,19 +25,19 @@ export default class EmpleadoService extends BackendClient<IEmpleado> {
     };
 
     try {
-      const empleado = await this.request(path, options, token);
-      return empleado;
+      const cliente = await this.request(path, options, token);
+      return cliente;
     } catch (error) {
-      console.error("Error al obtener el empleado por email:", error);
+      console.error("Error al obtener el cliente por email:", error);
       return null;
     }
   }
 
-  async postEmpleado(
+  async postCliente(
     url: string,
     data: FormData,
     token: string
-  ): Promise<IEmpleado> {
+  ): Promise<ICliente> {
     const path = url + "/";
     const options: RequestInit = {
       method: "POST",
@@ -50,12 +50,12 @@ export default class EmpleadoService extends BackendClient<IEmpleado> {
     return this.request(path, options, token);
   }
 
-  async putEmpleado(
+  async putCliente(
     url: string,
     id: number,
     data: FormData,
     token: string
-  ): Promise<IEmpleado> {
+  ): Promise<ICliente> {
     const path = `${url}/${id}`;
     const options: RequestInit = {
       method: "PUT",
@@ -68,7 +68,7 @@ export default class EmpleadoService extends BackendClient<IEmpleado> {
     return this.request(path, options, token);
   }
 
-  async deleteEmpleado(url: string, id: number, token: string): Promise<void> {
+  async deleteCliente(url: string, id: number, token: string): Promise<void> {
     const path = `${url}/${id}`;
     const options: RequestInit = {
       method: "DELETE",
