@@ -56,7 +56,6 @@ const Insumos = () => {
   const closeFormularioInsumo = () => {
     setShowFormularioInsumo(false);
     setUpdateTabla(true);
-    console.log("closeFormularioInsumo");
   };
   const handleFormSubmit = () => {
     setReloadTable(!reloadTable);
