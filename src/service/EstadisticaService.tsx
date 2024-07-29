@@ -1,5 +1,4 @@
-const Url = "http://localhost:8080/api/estadisticas";
-
+const Url = import.meta.env.VITE_API_URL;
 export const fetchIngresosPorRangoDeDias = async (
   startDate: string,
   endDate: string,
@@ -17,7 +16,7 @@ export const fetchIngresosPorRangoDeDias = async (
     return data;
   } catch (error) {
     console.error(error);
-    return {}; // Retorna un objeto vacío en caso de error
+    return {};
   }
 };
 
@@ -37,7 +36,7 @@ export const fetchIngresosPorRangoDeMeses = async (
     return data;
   } catch (error) {
     console.error(error);
-    return {}; // Retorna un objeto vacío en caso de error
+    return {};
   }
 };
 
@@ -46,7 +45,7 @@ export const fetchInsumosConStock = async (
 ): Promise<any[]> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/estadisticas/insumosConStock/${sucursalId}`
+      `${Url}/estadisticas/insumosConStock/${sucursalId}`
     );
     if (!response.ok) {
       throw new Error("Error al obtener los insumos con stock");
@@ -55,7 +54,7 @@ export const fetchInsumosConStock = async (
     return data;
   } catch (error) {
     console.error(error);
-    return []; // Retorna un objeto vacío en caso de error
+    return [];
   }
 };
 
@@ -64,7 +63,7 @@ export const fetchArticulosManufacturadosVendidos = async (
 ): Promise<any[]> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/estadisticas/articulosManufacturadosVendidos/${sucursalId}`
+      `${Url}/estadisticas/articulosManufacturadosVendidos/${sucursalId}`
     );
     if (!response.ok) {
       throw new Error("Error al obtener los artículos manufacturados vendidos");
@@ -73,6 +72,6 @@ export const fetchArticulosManufacturadosVendidos = async (
     return data;
   } catch (error) {
     console.error(error);
-    return []; // Retorna un arreglo vacío en caso de error
+    return [];
   }
 };

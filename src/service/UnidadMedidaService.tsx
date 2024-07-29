@@ -4,12 +4,13 @@ export interface UnidadMedida {
   denominacion: string;
   eliminado: boolean; // Asumiendo que tienes un campo 'eliminado' en tus datos
 }
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const cargarUnidadMedida = async (
   unidadMedida: UnidadMedida,
   token: string
 ) => {
-  const response = await fetch("http://localhost:8080/api/unidad-medida/", {
+  const response = await fetch(`${API_URL}/unidad-medida/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -31,17 +32,14 @@ export const actualizarUnidadMedida = async (
   unidadMedida: UnidadMedida,
   token: string
 ) => {
-  const response = await fetch(
-    `http://localhost:8080/api/unidad-medida/${id}`,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(unidadMedida),
-    }
-  );
+  const response = await fetch(`${API_URL}/unidad-medida/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(unidadMedida),
+  });
 
   if (!response.ok) {
     const errorData = await response.json();
@@ -55,7 +53,7 @@ export const actualizarUnidadMedida = async (
 // En tu servicio de unidad de medida
 
 export const toggleActiveUnidadMedida = async (id: number, token: string) => {
-  const url = `http://localhost:8080/api/unidad-medida/toggle-active/${id}`;
+  const url = `${API_URL}/unidad-medida/toggle-active/${id}`;
 
   const response = await fetch(url, {
     method: "PUT",
@@ -74,9 +72,7 @@ export const toggleActiveUnidadMedida = async (id: number, token: string) => {
 
 // Para obtener todas las unidades de medida
 export const traerTodoUnidadMedida = async () => {
-  const response = await fetch(
-    "http://localhost:8080/api/unidad-medida/traerTodo/"
-  );
+  const response = await fetch(`${API_URL}/unidad-medida/traerTodo/`);
 
   if (!response.ok) {
     throw new Error("Error al obtener las unidades de medida");

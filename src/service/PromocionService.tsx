@@ -37,13 +37,12 @@ export interface ArticuloManufacturado {
   imagenes?: string[];
   codigo?: string;
   eliminado?: boolean;
-  // Añade aquí cualquier otra propiedad que tenga un artículo
 }
-
+const API_URL = import.meta.env.VITE_API_URL;
 export const promocionesPorSucursal = async (sucursalId: number) => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/local/promocion/sucursal/${sucursalId}`
+      `${API_URL}/local/promocion/sucursal/${sucursalId}`
     );
     if (!response.ok) {
       throw new Error("Error en la solicitud");
@@ -59,7 +58,7 @@ export const promocionesPorSucursal = async (sucursalId: number) => {
 export const PromocionDetalle = async (promocionId: number) => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/local/promocion/detalle/${promocionId}`
+      `${API_URL}/local/promocion/detalle/${promocionId}`
     );
     if (!response.ok) {
       throw new Error("Error al obtener los detalles de la promoción");
@@ -75,7 +74,7 @@ export const PromocionDetalle = async (promocionId: number) => {
 export const fetchArticulosManufacturados = async (sucursalId: number) => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/local/articulo/manufacturado/sucursal/${sucursalId}`
+      `${API_URL}/local/articulo/manufacturado/sucursal/${sucursalId}`
     );
     if (!response.ok) {
       throw new Error("Error al obtener los artículos manufacturados");
@@ -90,7 +89,7 @@ export const fetchArticulosManufacturados = async (sucursalId: number) => {
 
 export const savePromocion = async (promocion: Promocion, token: string) => {
   try {
-    const response = await fetch("http://localhost:8080/api/promociones/", {
+    const response = await fetch(`${API_URL}/promociones/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -113,16 +112,13 @@ export const savePromocion = async (promocion: Promocion, token: string) => {
 
 export const togglePromocion = async (id: number, token: string) => {
   try {
-    const response = await fetch(
-      `http://localhost:8080/api/promociones/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await fetch(`${API_URL}/promociones/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     if (!response.ok) {
       throw new Error("Error en la solicitud");
@@ -137,35 +133,29 @@ export const togglePromocion = async (id: number, token: string) => {
 };
 export const eliminacionLogica = async (id: number, token: string) => {
   try {
-    const response = await fetch(
-      `http://localhost:8080/api/promociones/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    // Verificar si la operación fue exitosa basado en el código de estado HTTP 204
+    const response = await fetch(`${API_URL}/promociones/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (response.status === 204) {
-      return true; // La operación de eliminación fue exitosa
+      return true;
     } else {
-      // Si el código de estado no es 204, manejar como error o devolver false
       console.error("Respuesta inesperada del servidor:", response.status);
-      return false; // O manejar de otra manera según tu lógica de negocio
+      return false;
     }
   } catch (error) {
     console.error("Error:", error);
-    return false; // Indicar que la operación no fue exitosa
+    return false;
   }
 };
 
 export const fetchPromocionById = async (promocionId: number) => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/promociones/base64/${promocionId}`
+      `${API_URL}/promociones/base64/${promocionId}`
     );
     if (!response.ok) {
       throw new Error("Error al obtener los detalles de la promoción");
@@ -183,7 +173,7 @@ export const actualizarPromocion = async (
   promocion: Promocion,
   token: string
 ) => {
-  const response = await fetch(`http://localhost:8080/api/promociones/${id}`, {
+  const response = await fetch(`${API_URL}/promociones/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -202,7 +192,7 @@ export const actualizarPromocion = async (
 export const eliminarDetallesPromocion = async (id: number, token: string) => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/promociones/eliminar-detalles/${id}`,
+      `${API_URL}/promociones/eliminar-detalles/${id}`,
       {
         method: "DELETE",
         headers: {

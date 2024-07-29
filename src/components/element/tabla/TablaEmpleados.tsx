@@ -15,7 +15,8 @@ type TablaEmpleadosProps = {
   sucursalId: string;
   reload: boolean;
 };
-
+const URL_IMG = import.meta.env.VITE_URL_IMG;
+const API_URL = import.meta.env.VITE_API_URL;
 const TablaEmpleados: React.FC<TablaEmpleadosProps> = ({
   sucursalId,
   reload,
@@ -139,16 +140,13 @@ const TablaEmpleados: React.FC<TablaEmpleadosProps> = ({
   const handleDelete = async (id: string) => {
     try {
       const token = await getAccessTokenSilently();
-      const response = await fetch(
-        `http://localhost:8080/api/empleado/eliminar/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${API_URL}/empleado/eliminar/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Error al eliminar el empleado");
@@ -179,9 +177,9 @@ const TablaEmpleados: React.FC<TablaEmpleadosProps> = ({
       dataIndex: "imagen",
       key: "imagen",
       render: (text) => {
-        const defaultImage = "http://localhost:8080/images/default.jpg";
+        const defaultImage = `${URL_IMG}/images/default.jpg`;
         const imageUrl = text
-          ? `http://localhost:8080/images/${text.split("\\").pop()}`
+          ? `${URL_IMG}/images/${text.split("\\").pop()}`
           : userImage || defaultImage;
         return <img src={imageUrl} style={{ width: "50px" }} alt="Empleado" />;
       },
@@ -265,7 +263,6 @@ const TablaEmpleados: React.FC<TablaEmpleadosProps> = ({
           visible={isModalVisible}
           onClose={handleModalClose}
           onSubmit={(values) => {
-            // Handle the submit action
             console.log("Submitted values:", values);
             handleModalClose();
           }}

@@ -15,10 +15,10 @@ type Category = {
 type CategoryInputProps = {
   selectedEmpresa: string | null;
   selectedSucursal: string | null;
-  availableCategories: Category[]; // Add availableCategories as prop
-  onCategoryAssociated: () => void; // Add callback function as prop
+  availableCategories: Category[];
+  onCategoryAssociated: () => void;
 };
-
+const API_URL = import.meta.env.VITE_API_URL;
 const AsociarCategoriaTree: React.FC<CategoryInputProps> = ({
   //selectedEmpresa,
   selectedSucursal,
@@ -29,12 +29,12 @@ const AsociarCategoriaTree: React.FC<CategoryInputProps> = ({
     if (!selectedSucursal) return;
 
     try {
-      const url = `http://localhost:8080/api/local/agregarSucursalACategoria/${categoriaId}/${selectedSucursal}`;
+      const url = `${API_URL}/local/agregarSucursalACategoria/${categoriaId}/${selectedSucursal}`;
       const response = await fetch(url, { method: "POST" });
 
       if (response.ok) {
         message.success("Categoría asociada exitosamente");
-        onCategoryAssociated(); // Call the callback function to update categories
+        onCategoryAssociated();
       } else {
         message.error("Error al asociar la categoría");
       }

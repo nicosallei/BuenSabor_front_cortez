@@ -12,9 +12,9 @@ export interface Localidad {
   nombre: string;
   provincia: Provincia;
 }
-
+const API_URL = import.meta.env.VITE_API_URL;
 export const getPais = async (): Promise<any> => {
-  const endpoint = "http://localhost:8080/api/pais/traer-todo/";
+  const endpoint = `${API_URL}/pais/traer-todo/`;
   const response = await fetch(endpoint, {
     method: "GET",
     headers: {
@@ -30,7 +30,7 @@ export const getPais = async (): Promise<any> => {
 };
 
 export const getProvincia = async (): Promise<any> => {
-  const endpoint = "http://localhost:8080/api/provincia/traer-todo/";
+  const endpoint = `${API_URL}/provincia/traer-todo/`;
   const response = await fetch(endpoint, {
     method: "GET",
     headers: {
@@ -45,7 +45,7 @@ export const getProvincia = async (): Promise<any> => {
   return await response.json();
 };
 export const getLocalidad = async (): Promise<any> => {
-  const endpoint = "http://localhost:8080/api/localidad/traer-todo/";
+  const endpoint = `${API_URL}/localidad/traer-todo/`;
   const response = await fetch(endpoint, {
     method: "GET",
     headers: {
@@ -61,7 +61,7 @@ export const getLocalidad = async (): Promise<any> => {
 };
 
 export const getPaisPorId = async (id: string): Promise<any> => {
-  const endpoint = `http://localhost:8080/api/pais/${id}`;
+  const endpoint = `${API_URL}/pais/${id}`;
   const response = await fetch(endpoint, {
     method: "GET",
     headers: {
@@ -77,7 +77,7 @@ export const getPaisPorId = async (id: string): Promise<any> => {
 };
 
 export const getProvinciaPorId = async (id: string): Promise<any> => {
-  const endpoint = `http://localhost:8080/api/provincia/${id}`;
+  const endpoint = `${API_URL}/provincia/${id}`;
   const response = await fetch(endpoint, {
     method: "GET",
     headers: {
@@ -93,7 +93,7 @@ export const getProvinciaPorId = async (id: string): Promise<any> => {
 };
 
 export const getLocalidadPorId = async (id: number): Promise<any> => {
-  const endpoint = `http://localhost:8080/api/localidad/${id}`;
+  const endpoint = `${API_URL}/localidad/${id}`;
   const response = await fetch(endpoint, {
     method: "GET",
     headers: {
@@ -112,7 +112,7 @@ export const getLocalidadesByProvincia = async (
   provinciaId: number
 ): Promise<Localidad[]> => {
   const response = await fetch(
-    `http://localhost:8080/api/localidad/provincia/${provinciaId}`,
+    `${API_URL}/localidad/provincia/${provinciaId}`,
     {
       method: "GET",
       headers: {

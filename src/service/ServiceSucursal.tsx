@@ -10,11 +10,11 @@ export interface Sucursal {
   localidad?: string;
   provincia: string;
   pais: string;
-  imagen?: string; // Añadido opcional
+  imagen?: string;
   idEmpresa: string;
   empresa?: Empresa;
   file?: File;
-  domicilio?: Domicilio; // Añadido para manejar el archivo
+  domicilio?: Domicilio;
 }
 
 export interface Empresa {
@@ -31,8 +31,9 @@ export interface Domicilio {
   numero?: string;
   cp?: number;
 }
+const API_URL = import.meta.env.VITE_API_URL;
 export const getSucursalId = async (id: number): Promise<Sucursal[]> => {
-  const endpoint = `http://localhost:8080/api/sucursal/lista-todo-sucursal/${id}`;
+  const endpoint = `${API_URL}/sucursal/lista-todo-sucursal/${id}`;
   const response = await fetch(endpoint, {
     method: "GET",
     headers: {
@@ -48,16 +49,8 @@ export const getSucursalId = async (id: number): Promise<Sucursal[]> => {
 };
 
 export async function crearSucursal(formData: Sucursal, token: string) {
-  console.log("estoy en el crearSucursal");
-
   try {
-    console.log("estoy en el fetch");
-
-    console.log(formData);
-
-    const urlServer = "http://localhost:8080/api/sucursal/";
-
-    const response = await fetch(urlServer, {
+    const response = await fetch(`${API_URL}/sucursal/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -86,12 +79,12 @@ export async function crearSucursal(formData: Sucursal, token: string) {
     return await response.json();
   } catch (error) {
     console.log("Error: ", error);
-    throw error; // Asegurarse de propagar el error para que el componente pueda manejarlo
+    throw error;
   }
 }
 
 export async function eliminarSucursal(id: string, token: string) {
-  const urlServer = "http://localhost:8080/api/sucursal/" + id;
+  const urlServer = `${API_URL}/sucursal/${id}`;
   await fetch(urlServer, {
     method: "DELETE",
     headers: {
@@ -103,7 +96,7 @@ export async function eliminarSucursal(id: string, token: string) {
   });
 }
 export async function activarSucursal(id: string) {
-  const urlServer = "http://localhost:8080/api/sucursal/reactivate" + id;
+  const urlServer = `${API_URL}/sucursal/reactivate${id}`;
   await fetch(urlServer, {
     method: "GET",
     headers: {
@@ -114,7 +107,7 @@ export async function activarSucursal(id: string) {
   });
 }
 export async function getSucursalXId(id: string) {
-  const urlServer = "http://localhost:8080/api/sucursal/" + id;
+  const urlServer = `${API_URL}/sucursal/${id}`;
   console.log(urlServer);
   const response = await fetch(urlServer, {
     method: "GET",
@@ -139,7 +132,7 @@ export async function actualizarSucursal(
 
     console.log(formData);
 
-    const urlServer = "http://localhost:8080/api/sucursal/" + id;
+    const urlServer = `${API_URL}/sucursal/${id}`;
 
     const response = await fetch(urlServer, {
       method: "PUT",
@@ -171,12 +164,12 @@ export async function actualizarSucursal(
     return await response.json();
   } catch (error) {
     console.log("Error: ", error);
-    throw error; // Asegurarse de propagar el error para que el componente pueda manejarlo
+    throw error;
   }
 }
 
 export const getSucursal = async (id: string): Promise<Sucursal[]> => {
-  const endpoint = `http://localhost:8080/api/sucursal/lista-sucursal/${id}`;
+  const endpoint = `${API_URL}/sucursal/lista-sucursal/${id}`;
   const response = await fetch(endpoint, {
     method: "GET",
     headers: {
@@ -189,7 +182,7 @@ export const getSucursal = async (id: string): Promise<Sucursal[]> => {
   return await response.json();
 };
 export const getSucursalTodas = async (id: string): Promise<Sucursal[]> => {
-  const endpoint = `http://localhost:8080/api/sucursal/lista-todo-sucursal/${id}`;
+  const endpoint = `${API_URL}/sucursal/lista-todo-sucursal/${id}`;
   const response = await fetch(endpoint, {
     method: "GET",
     headers: {
@@ -202,7 +195,7 @@ export const getSucursalTodas = async (id: string): Promise<Sucursal[]> => {
   return await response.json();
 };
 export const obtenerSucursalesActivas = async (): Promise<Sucursal[]> => {
-  const endpoint = "http://localhost:8080/api/sucursal/traerSucursales/"; // Asegúrate de que la URL sea correcta
+  const endpoint = `${API_URL}/sucursal/traerSucursales/`;
   try {
     const response = await fetch(endpoint, {
       method: "GET",
@@ -218,6 +211,6 @@ export const obtenerSucursalesActivas = async (): Promise<Sucursal[]> => {
     return await response.json();
   } catch (error) {
     console.error("Error al obtener sucursales activas:", error);
-    throw error; // Propagar el error para manejarlo en el componente
+    throw error;
   }
 };

@@ -34,6 +34,7 @@ interface Props {
   onReload: () => void;
 }
 
+const URL_IMG = import.meta.env.VITE_URL_IMG;
 const App: React.FC<Props> = ({ sucursalId, onReload, reload }) => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
@@ -213,8 +214,8 @@ const App: React.FC<Props> = ({ sucursalId, onReload, reload }) => {
         <img
           src={
             record.imagen
-              ? `http://localhost:8080/images/${record.imagen}`
-              : `http://localhost:8080/images/sin-imagen.jpg`
+              ? `${URL_IMG}/images/${record.imagen}`
+              : `${URL_IMG}/images/sin-imagen.jpg`
           }
           style={{ width: "50px" }}
           alt="Imagen"

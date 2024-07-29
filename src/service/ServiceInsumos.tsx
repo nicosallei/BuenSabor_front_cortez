@@ -32,9 +32,9 @@ export interface Empresa {
   nombre: string;
   cuit: string;
 }
-
+const API_URL = import.meta.env.VITE_API_URL;
 export const getUnidadMedida = async (): Promise<unidadMedida[]> => {
-  const endpoint = "http://localhost:8080/api/unidad-medida/";
+  const endpoint = `${API_URL}/unidad-medida/`;
   const response = await fetch(endpoint, {
     method: "GET",
     headers: {
@@ -48,7 +48,7 @@ export const getUnidadMedida = async (): Promise<unidadMedida[]> => {
 };
 
 export const getArticulosInsumos = async (): Promise<ArticuloInsumo[]> => {
-  const endpoint = "http://localhost:8080/api/articulos/insumos/";
+  const endpoint = `${API_URL}/articulos/insumos/`;
   const response = await fetch(endpoint, {
     method: "GET",
     headers: {
@@ -62,14 +62,8 @@ export const getArticulosInsumos = async (): Promise<ArticuloInsumo[]> => {
 };
 
 export async function crearInsumo(formData: ArticuloInsumo, token: string) {
-  console.log("estoy en el crearInsumo");
-
   try {
-    console.log("estoy en el fetch");
-
-    console.log(formData);
-
-    const urlServer = "http://localhost:8080/api/articulos/insumos/";
+    const urlServer = `${API_URL}/articulos/insumos/`;
     const response = await fetch(urlServer, {
       method: "POST",
       headers: {
@@ -94,14 +88,13 @@ export async function crearInsumo(formData: ArticuloInsumo, token: string) {
     });
 
     if (!response.ok) {
-      // Si el servidor envía un mensaje de error en el cuerpo de la respuesta
       const errorData = await response.json();
       throw new Error(errorData.message || "Error al crear el insumo");
     }
     return await response.json();
   } catch (error: any) {
     console.error("Error al crear el insumo:", error.message);
-    throw error; // Re-lanzar el error para manejarlo en otra parte de tu aplicación
+    throw error;
   }
 }
 
@@ -111,11 +104,7 @@ export async function modificarInsumoId(
   token: string
 ) {
   try {
-    console.log("estoy en el fetc");
-    console.log("data" + formData);
-    console.log("id:" + id);
-
-    const urlServer = `http://localhost:8080/api/articulos/insumos/${id}`;
+    const urlServer = `${API_URL}/articulos/insumos/${id}`;
     const response = await fetch(urlServer, {
       method: "PUT",
       headers: {
@@ -144,7 +133,7 @@ export async function modificarInsumoId(
     return await response.json();
   } catch (error: any) {
     console.error("Error al modificar el insumo:", error.message);
-    throw error; // Re-lanzar el error para manejarlo en otra parte de tu aplicación
+    throw error;
   }
 }
 

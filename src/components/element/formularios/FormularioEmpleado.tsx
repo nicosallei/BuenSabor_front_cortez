@@ -19,7 +19,7 @@ interface Props {
   initialValues: any;
   sucursalId?: string;
 }
-
+const API_URL = import.meta.env.VITE_API_URL;
 const FormularioEmpleado: React.FC<Props> = ({
   visible,
   onClose,
@@ -65,7 +65,7 @@ const FormularioEmpleado: React.FC<Props> = ({
       formattedValues.password = encryptedPassword;
 
       const response = await fetch(
-        "http://localhost:8080/api/usuario/registro/usuario-empleado",
+        `${API_URL}/usuario/registro/usuario-empleado`,
         {
           method: "POST",
           headers: {

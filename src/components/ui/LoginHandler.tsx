@@ -65,7 +65,7 @@ const LoginHandler: React.FC = () => {
           }
         } catch (error) {
           console.error("Error al obtener el empleado:", error);
-          logout(); // Redirige al login de Auth0
+          logout();
         }
       } else {
         navigate("/");

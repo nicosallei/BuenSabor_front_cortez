@@ -20,7 +20,7 @@ const Empresa = () => {
   const [selectedEmpresa, setSelectedEmpresa] = useState<any>(null);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [reloadTable, setReloadTable] = useState(false);
-
+  const URL_IMG = import.meta.env.VITE_URL_IMG;
   const navigate = useNavigate();
   const cargarDatosEmpresa = async () => {
     try {
@@ -32,7 +32,7 @@ const Empresa = () => {
               ...empresa,
               imagen: empresa.imagen.replace(
                 "src\\main\\resources\\images\\",
-                "http://localhost:8080/images/"
+                `${URL_IMG}/images/`
               ),
             };
           }
@@ -118,7 +118,7 @@ const Empresa = () => {
             ...empresa,
             imagen: empresa.imagen.replace(
               "src\\main\\resources\\images\\",
-              "http://localhost:8080/images/"
+              `${URL_IMG}/images/`
             ),
           };
         }

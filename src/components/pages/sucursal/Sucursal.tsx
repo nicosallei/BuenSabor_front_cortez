@@ -20,7 +20,7 @@ const Sucursal = () => {
   const empresa = useSelector((state) => state);
   const dispatch = useDispatch();
   console.log(empresa);
-
+  const URL_IMG = import.meta.env.VITE_URL_IMG;
   const [sucursales, setSucursales] = useState<sucursalInterface[]>([]);
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
@@ -159,7 +159,7 @@ const Sucursal = () => {
                         ? sucursal.imagen
                             .replace(
                               /src\\main\\resources\\images\\/g,
-                              "http://localhost:8080/images/"
+                              `${URL_IMG}/images/`
                             )
                             .replace(/\\/g, "/")
                         : imagenSucursal

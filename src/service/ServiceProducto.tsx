@@ -48,19 +48,13 @@ interface Categoria {
   id: number;
   denominacion: string;
 }
-
+const API_URL = import.meta.env.VITE_API_URL;
 export async function crearManufacturado(
   formData: ArticuloProducto,
   token: string
 ) {
-  console.log("estoy en el crearManufacturado");
-
   try {
-    console.log("estoy en el fetch");
-
-    console.log(formData);
-
-    const urlServer = "http://localhost:8080/api/articulos/manufacturados/";
+    const urlServer = `${API_URL}/articulos/manufacturados/`;
     const response = await fetch(urlServer, {
       method: "POST",
       headers: {
@@ -87,7 +81,6 @@ export async function crearManufacturado(
     });
 
     if (!response.ok) {
-      // Si el servidor envía un mensaje de error en el cuerpo de la respuesta
       const errorData = await response.json();
       throw new Error(
         errorData.message || "Error crear producto manufacturado"
@@ -96,14 +89,12 @@ export async function crearManufacturado(
     return await response.json();
   } catch (error: any) {
     console.error("Error al crear producto manufacturado:", error.message);
-    throw error; // Re-lanzar el error para manejarlo en otra parte de tu aplicación
+    throw error;
   }
 }
 
 export async function getProductoXSucursal(id: string) {
-  const urlServer =
-    "http://localhost:8080/api/local/articulo/manufacturado/sucursal/" + id;
-  console.log(urlServer);
+  const urlServer = `${API_URL}/local/articulo/manufacturado/sucursal/${id}`;
   const response = await fetch(urlServer, {
     method: "GET",
     headers: {
@@ -118,9 +109,7 @@ export async function getProductoXSucursal(id: string) {
 
 export const getProductoXId = async (id: string) => {
   try {
-    const response = await fetch(
-      " http://localhost:8080/api/articulos/manufacturados/" + id
-    );
+    const response = await fetch(`${API_URL}/articulos/manufacturados/${id}`);
     if (!response.ok) {
       throw new Error("Error al obtener los detalles de la promoción");
     }
@@ -134,7 +123,7 @@ export const getProductoXId = async (id: string) => {
 export const getProductoXIdBase = async (id: string) => {
   try {
     const response = await fetch(
-      " http://localhost:8080/api/articulos/manufacturados/imagenBase64/" + id
+      `${API_URL}/articulos/manufacturados/imagenBase64/${id}`
     );
     if (!response.ok) {
       throw new Error("Error al obtener los detalles de la promoción");
@@ -152,7 +141,7 @@ export async function modificarProductoId(
   token: string
 ) {
   try {
-    const urlServer = `http://localhost:8080/api/articulos/manufacturados/${id}`;
+    const urlServer = `${API_URL}/articulos/manufacturados/${id}`;
     const response = await fetch(urlServer, {
       method: "PUT",
       headers: {
@@ -178,7 +167,6 @@ export async function modificarProductoId(
     });
 
     if (!response.ok) {
-      // Si el servidor envía un mensaje de error en el cuerpo de la respuesta
       const errorData = await response.json();
       throw new Error(
         errorData.message || "Error al editar el producto manufacturado"
@@ -187,11 +175,11 @@ export async function modificarProductoId(
     return await response.json();
   } catch (error: any) {
     console.error("Error al editar el  Producto Manufacturado:", error.message);
-    throw error; // Re-lanzar el error para manejarlo en otra parte de tu aplicación
+    throw error;
   }
 }
 export async function deleteProductoXId(id: string, token: string) {
-  const urlServer = "http://localhost:8080/api/articulos/manufacturados/" + id;
+  const urlServer = `${API_URL}/articulos/manufacturados/${id}`;
   await fetch(urlServer, {
     method: "DELETE",
     headers: {
@@ -203,8 +191,7 @@ export async function deleteProductoXId(id: string, token: string) {
   });
 }
 export async function activarProductoXId(id: string, token: string) {
-  const urlServer =
-    "http://localhost:8080/api/articulos/manufacturados/reactivate/" + id;
+  const urlServer = `${API_URL}/articulos/manufacturados/reactivate/${id}`;
   await fetch(urlServer, {
     method: "POST",
     headers: {
@@ -217,7 +204,7 @@ export async function activarProductoXId(id: string, token: string) {
 }
 
 export async function getCategoria(id: number) {
-  const urlServer = "http://localhost:8080/api/local/traerTodo/" + id;
+  const urlServer = `${API_URL}/local/traerTodo/${id}`;
   console.log(urlServer);
   const response = await fetch(urlServer, {
     method: "GET",

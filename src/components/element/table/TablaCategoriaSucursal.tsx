@@ -18,7 +18,7 @@ type CategoryInputProps = {
   selectedEmpresa: string | null;
   selectedSucursal: string | null;
 };
-
+const API_URL = import.meta.env.VITE_API_URL;
 const ArbolCategoriaPorSucursal: React.FC<CategoryInputProps> = ({
   selectedEmpresa,
   selectedSucursal,
@@ -41,8 +41,8 @@ const ArbolCategoriaPorSucursal: React.FC<CategoryInputProps> = ({
     try {
       if (!selectedEmpresa || !selectedSucursal) return;
 
-      //const url = `http://localhost:8080/api/local/traerTodoCategoria/${selectedSucursal}`;
-      const url = `http://localhost:8080/api/categorias/categoriasPadre/${selectedSucursal}`;
+      //const url = `${API_URL}/local/traerTodoCategoria/${selectedSucursal}`;
+      const url = `${API_URL}/categorias/categoriasPadre/${selectedSucursal}`;
       const response = await fetch(url);
       const data: Category[] = await response.json();
 
@@ -57,7 +57,7 @@ const ArbolCategoriaPorSucursal: React.FC<CategoryInputProps> = ({
     try {
       if (!selectedEmpresa || !selectedSucursal) return;
 
-      const url = `http://localhost:8080/api/local/traerCategoriasNoAsociadasASucursal/${selectedSucursal}/${selectedEmpresa}`;
+      const url = `${API_URL}/local/traerCategoriasNoAsociadasASucursal/${selectedSucursal}/${selectedEmpresa}`;
       const response = await fetch(url);
       const data: Category[] = await response.json();
 
@@ -72,12 +72,11 @@ const ArbolCategoriaPorSucursal: React.FC<CategoryInputProps> = ({
     if (!selectedSucursal) return;
 
     try {
-      const url = `http://localhost:8080/api/local/desasociarSucursalDeCategoria/${categoriaId}/${selectedSucursal}`;
+      const url = `${API_URL}/local/desasociarSucursalDeCategoria/${categoriaId}/${selectedSucursal}`;
       const response = await fetch(url, { method: "POST" });
 
       if (response.ok) {
         message.success("Categoría desasociada exitosamente");
-        // Trigger a refresh of the categories
         setUpdateKey(Date.now());
       } else {
         message.error("Error al desasociar la categoría");
@@ -126,13 +125,13 @@ const ArbolCategoriaPorSucursal: React.FC<CategoryInputProps> = ({
     ));
 
   const showModal = () => {
-    fetchAvailableCategories(); // Ensure available categories are fetched before showing the modal
+    fetchAvailableCategories();
     setIsModalVisible(true);
   };
 
   const handleOk = () => {
     setIsModalVisible(false);
-    fetchCategories(); // Actualizar la tabla al confirmar en el modal
+    fetchCategories();
   };
 
   const handleCancel = () => {
@@ -163,8 +162,8 @@ const ArbolCategoriaPorSucursal: React.FC<CategoryInputProps> = ({
         <AsociarCategoriaTree
           selectedEmpresa={selectedEmpresa}
           selectedSucursal={selectedSucursal}
-          availableCategories={availableCategories} // Pass available categories as props
-          onCategoryAssociated={handleCategoryAssociation} // Pass callback function as prop
+          availableCategories={availableCategories}
+          onCategoryAssociated={handleCategoryAssociation}
         />
       </Modal>
     </div>

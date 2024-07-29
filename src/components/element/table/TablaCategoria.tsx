@@ -18,7 +18,8 @@ type Category = {
 type CategoryInputProps = {
   selectedEmpresa: string | null;
 };
-
+const URL_IMG = import.meta.env.VITE_URL_IMG;
+const API_URL = import.meta.env.VITE_API_URL;
 const TablaCategoria: React.FC<CategoryInputProps> = ({ selectedEmpresa }) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
@@ -64,7 +65,7 @@ const TablaCategoria: React.FC<CategoryInputProps> = ({ selectedEmpresa }) => {
     try {
       if (!selectedEmpresa) return;
 
-      const url = `http://localhost:8080/api/categorias/porEmpresa/${selectedEmpresa}`;
+      const url = `${API_URL}/categorias/porEmpresa/${selectedEmpresa}`;
       const response = await fetch(url);
       const data: Category[] = await response.json();
 
@@ -94,7 +95,7 @@ const TablaCategoria: React.FC<CategoryInputProps> = ({ selectedEmpresa }) => {
         throw new Error("No se puede editar la categoría seleccionada");
       }
 
-      const url = `http://localhost:8080/api/categorias/${editingCategory.id}/denominacion`;
+      const url = `${API_URL}/categorias/${editingCategory.id}/denominacion`;
 
       const response = await fetch(url, {
         method: "PUT",
@@ -133,10 +134,9 @@ const TablaCategoria: React.FC<CategoryInputProps> = ({ selectedEmpresa }) => {
 
   const handleSwitchChange = async (item: Category) => {
     try {
-      const url = `http://localhost:8080/api/categorias/${item.id}/eliminado`;
+      const url = `${API_URL}/categorias/${item.id}/eliminado`;
       const response = await fetch(url, { method: "PUT" });
       if (response.ok) {
-        // Actualiza el estado local
         setCategories((prevCategories) =>
           prevCategories.map((category) =>
             category.id === item.id
@@ -167,7 +167,7 @@ const TablaCategoria: React.FC<CategoryInputProps> = ({ selectedEmpresa }) => {
         throw new Error("No se ha seleccionado una categoría padre");
 
       const response = await fetch(
-        `http://localhost:8080/api/categorias/subcategoriaConEmpresa`,
+        `${API_URL}/categorias/subcategoriaConEmpresa`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -207,7 +207,7 @@ const TablaCategoria: React.FC<CategoryInputProps> = ({ selectedEmpresa }) => {
       const imageUrl = item.urlIcono
         ? item.urlIcono.replace(
             "src\\main\\resources\\images\\",
-            "http://localhost:8080/images/"
+            `${URL_IMG}/images/`
           )
         : sinImagen;
 

@@ -42,6 +42,7 @@ const Promociones = () => {
     const empresasData = await getEmpresas();
     setEmpresas(empresasData);
   };
+  const URL_IMG = import.meta.env.VITE_URL_IMG;
   useEffect(() => {
     fetchEmpresas();
   }, []);
@@ -90,7 +91,7 @@ const Promociones = () => {
         const url = item.articuloManufacturadoDto.imagenes[0].url;
         const parts = url.split("\\");
         const fileName = parts[parts.length - 1];
-        item.articuloManufacturadoDto.imagenes[0].url = `http://localhost:8080/images/${fileName}`;
+        item.articuloManufacturadoDto.imagenes[0].url = `${URL_IMG}/images/${fileName}`;
       }
     });
     setPromocionDetail(detalle);
@@ -286,7 +287,7 @@ const Promociones = () => {
               {promocion.denominacion}
             </h2>
             <img
-              src={"http://localhost:8080/images/" + promocion.imagen}
+              src={`${URL_IMG}/images/${promocion.imagen}`}
               alt={"sin imagen"}
               style={{
                 width: "100%",

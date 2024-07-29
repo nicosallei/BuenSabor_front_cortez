@@ -13,7 +13,7 @@ interface Props {
   sucursalId?: string;
   empleadoId?: string;
 }
-
+const API_URL = import.meta.env.VITE_API_URL;
 const FormularioEmpleado: React.FC<Props> = ({
   visible,
   onClose,
@@ -59,10 +59,10 @@ const FormularioEmpleado: React.FC<Props> = ({
       const token = await getAccessTokenSilently();
       formattedValues.imagen = nuevaImagenBase64;
 
-      let url = `http://localhost:8080/api/empleado/`;
+      let url = `${API_URL}/empleado/`;
       let method = "POST";
       if (empleadoId) {
-        url = `http://localhost:8080/api/empleado/${empleadoId}`;
+        url = `${API_URL}/empleado/${empleadoId}`;
         method = "PUT";
       }
 

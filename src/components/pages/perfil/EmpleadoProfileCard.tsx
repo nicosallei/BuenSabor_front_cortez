@@ -11,7 +11,7 @@ const EmpleadoProfileCard = () => {
   const token = useMemo(() => localStorage.getItem("auth_token") || "", []);
   const empleadoService = useMemo(() => new EmpleadoService(), []);
   const baseURL = useMemo(() => import.meta.env.VITE_API_URL, []);
-
+  const URL_IMG = import.meta.env.VITE_URL_IMG;
   useEffect(() => {
     const fetchEmpleado = async () => {
       if (email && token) {
@@ -42,9 +42,7 @@ const EmpleadoProfileCard = () => {
         empleado?.imagen ? (
           <img
             alt="Empleado"
-            src={`http://localhost:8080/images/${empleado.imagen
-              .split("\\")
-              .pop()}`}
+            src={`${URL_IMG}/images/${empleado.imagen.split("\\").pop()}`}
           />
         ) : (
           <Avatar size={300} src={<img src={avatarImage} alt="Avatar" />} />

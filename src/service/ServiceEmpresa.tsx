@@ -8,9 +8,9 @@ export interface Empresas {
   eliminado?: boolean;
   imagen?: string;
 }
-
+const API_URL = import.meta.env.VITE_API_URL;
 export const getEmpresas = async (): Promise<Empresas[]> => {
-  const endpoint = "http://localhost:8080/api/empresa/traer-todo/";
+  const endpoint = `${API_URL}/empresa/traer-todo/`;
   const response = await fetch(endpoint, {
     method: "GET",
     headers: {
@@ -23,7 +23,7 @@ export const getEmpresas = async (): Promise<Empresas[]> => {
   return await response.json();
 };
 export const getTodasEmpresas = async (): Promise<Empresas[]> => {
-  const endpoint = "http://localhost:8080/api/empresa/traer-todo/eliminado/";
+  const endpoint = `${API_URL}/empresa/traer-todo/eliminado/`;
   const response = await fetch(endpoint, {
     method: "GET",
     headers: {
@@ -37,14 +37,8 @@ export const getTodasEmpresas = async (): Promise<Empresas[]> => {
 };
 
 export async function crearEmpresa(formData: Empresas, token: string) {
-  console.log("estoy en el crearEmpresa");
-
   try {
-    console.log("estoy en el fetch");
-
-    console.log(formData);
-
-    const urlServer = "http://localhost:8080/api/empresa/";
+    const urlServer = `${API_URL}/empresa/`;
     const response = await fetch(urlServer, {
       method: "POST",
       headers: {
@@ -75,7 +69,7 @@ export const actualizarEmpresa = async (
   empresa: Empresa,
   token: string
 ): Promise<Response> => {
-  const endpoint = `http://localhost:8080/api/empresa/${id}`;
+  const endpoint = `${API_URL}/empresa/${id}`;
   const response = await fetch(endpoint, {
     method: "PUT",
     headers: {
@@ -89,7 +83,7 @@ export const actualizarEmpresa = async (
   return response;
 };
 export const eliminarEmpresa = async (id: number): Promise<Response> => {
-  const endpoint = `http://localhost:8080/api/empresa/${id}`;
+  const endpoint = `${API_URL}/empresa/${id}`;
   const response = await fetch(endpoint, {
     method: "DELETE",
     headers: {

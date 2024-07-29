@@ -6,7 +6,7 @@ interface BotonAgregarCategoriaProps {
   selectedEmpresaId: string;
   onCategoryCreated: () => void;
 }
-
+const API_URL = import.meta.env.VITE_API_URL;
 export default function BotonAgregarCategoria({
   selectedEmpresaId,
   onCategoryCreated,
@@ -68,16 +68,13 @@ export default function BotonAgregarCategoria({
       values.urlIcono = imagenBase64;
       values.sucursales = sucursalesObj;
 
-      const response = await fetch(
-        "http://localhost:8080/api/categorias/porEmpresa",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(values),
-        }
-      );
+      const response = await fetch(`${API_URL}/categorias/porEmpresa`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
       setImagenBase64(undefined);
       if (!response.ok) {
         // Si el servidor envía un mensaje de error en el cuerpo de la respuesta
