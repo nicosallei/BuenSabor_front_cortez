@@ -10,9 +10,14 @@ export const Auth0ProviderWithNavigate = ({ children }: Props) => {
 
   const domain = import.meta.env.VITE_AUTH0_DOMAIN;
   const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
-  const redirectUri = import.meta.env.VITE_AUTH0_CALLBACK_URL;
+  //const redirectUri = import.meta.env.VITE_AUTH0_CALLBACK_URL;
   const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
-
+  const vercelUrl = import.meta.env.VERCEL_URL
+    ? `https://${import.meta.env.VERCEL_URL}`
+    : "";
+  const redirectUri = vercelUrl
+    ? `${vercelUrl}/callback`
+    : import.meta.env.VITE_AUTH0_CALLBACK_URL;
   const onRedirectCallback = (appState: AppState | undefined) => {
     navigate(appState?.returnTo || window.location.pathname);
   };
