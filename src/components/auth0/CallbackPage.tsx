@@ -7,6 +7,7 @@ const Callback = () => {
   React.useEffect(() => {
     if (isAuthenticated) {
       window.location.href = "/"; // Redirige a una página específica después de la autenticación
+
     }
   }, [isAuthenticated]);
 
