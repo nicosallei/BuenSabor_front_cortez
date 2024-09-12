@@ -15,6 +15,7 @@
     "@reduxjs/toolkit": "^2.2.5",
     "antd": "^5.17.4",
     "axios": "^1.7.2",
+    "buensaborfront": "file:",
     "chart.js": "^4.4.3",
     "cors": "^2.8.5",
     "crypto-js": "^4.2.0",
