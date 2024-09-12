@@ -71,7 +71,7 @@ const LoginHandler: React.FC = () => {
                 "selectedEmpresaNombre",
                 empleado.sucursal.empresa.nombre
               );
-              navigate("/pedidos/menu");
+              navigate("/productos");
             }
           } else {
             const cliente = await clienteService.getClienteByEmail(
@@ -90,7 +90,7 @@ const LoginHandler: React.FC = () => {
               localStorage.setItem("rol", cliente.rol);
               localStorage.setItem("id", cliente.id.toString()); // Asumiendo que quieres marcar el rol en localStorage
               // Aquí puedes agregar más lógica específica para clientes
-              navigate("/compra"); // Redirige a la ruta específica para clientes
+              navigate("/perfil"); // Redirige a la ruta específica para clientes
             } else {
               throw new Error("Usuario no encontrado");
             }
